@@ -10,13 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TestsIndexRouteImport } from './routes/tests/index'
+import { Route as SubjectsIndexRouteImport } from './routes/subjects/index'
+import { Route as NusqaIndexRouteImport } from './routes/nusqa/index'
+import { Route as HomeworkIndexRouteImport } from './routes/homework/index'
+import { Route as TestsTestIdRouteImport } from './routes/tests/$testId'
+import { Route as SubjectsSubjectSlugRouteImport } from './routes/subjects/$subjectSlug'
+import { Route as HomeworkHwIdRouteImport } from './routes/homework/$hwId'
+import { Route as TestsTestIdResultRouteImport } from './routes/tests/$testId.result'
+import { Route as SubjectsSubjectSlugLessonLessonIdRouteImport } from './routes/subjects/$subjectSlug.lesson.$lessonId'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -29,44 +46,195 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestsIndexRoute = TestsIndexRouteImport.update({
+  id: '/tests/',
+  path: '/tests/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjectsIndexRoute = SubjectsIndexRouteImport.update({
+  id: '/subjects/',
+  path: '/subjects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NusqaIndexRoute = NusqaIndexRouteImport.update({
+  id: '/nusqa/',
+  path: '/nusqa/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeworkIndexRoute = HomeworkIndexRouteImport.update({
+  id: '/homework/',
+  path: '/homework/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestsTestIdRoute = TestsTestIdRouteImport.update({
+  id: '/tests/$testId',
+  path: '/tests/$testId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjectsSubjectSlugRoute = SubjectsSubjectSlugRouteImport.update({
+  id: '/subjects/$subjectSlug',
+  path: '/subjects/$subjectSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeworkHwIdRoute = HomeworkHwIdRouteImport.update({
+  id: '/homework/$hwId',
+  path: '/homework/$hwId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestsTestIdResultRoute = TestsTestIdResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => TestsTestIdRoute,
+} as any)
+const SubjectsSubjectSlugLessonLessonIdRoute =
+  SubjectsSubjectSlugLessonLessonIdRouteImport.update({
+    id: '/lesson/$lessonId',
+    path: '/lesson/$lessonId',
+    getParentRoute: () => SubjectsSubjectSlugRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/homework/$hwId': typeof HomeworkHwIdRoute
+  '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/homework/': typeof HomeworkIndexRoute
+  '/nusqa/': typeof NusqaIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
+  '/tests/': typeof TestsIndexRoute
+  '/tests/$testId/result': typeof TestsTestIdResultRoute
+  '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/homework/$hwId': typeof HomeworkHwIdRoute
+  '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/homework': typeof HomeworkIndexRoute
+  '/nusqa': typeof NusqaIndexRoute
+  '/subjects': typeof SubjectsIndexRoute
+  '/tests': typeof TestsIndexRoute
+  '/tests/$testId/result': typeof TestsTestIdResultRoute
+  '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/homework/$hwId': typeof HomeworkHwIdRoute
+  '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/homework/': typeof HomeworkIndexRoute
+  '/nusqa/': typeof NusqaIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
+  '/tests/': typeof TestsIndexRoute
+  '/tests/$testId/result': typeof TestsTestIdResultRoute
+  '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/onboarding' | '/register'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/login'
+    | '/onboarding'
+    | '/profile'
+    | '/register'
+    | '/homework/$hwId'
+    | '/subjects/$subjectSlug'
+    | '/tests/$testId'
+    | '/homework/'
+    | '/nusqa/'
+    | '/subjects/'
+    | '/tests/'
+    | '/tests/$testId/result'
+    | '/subjects/$subjectSlug/lesson/$lessonId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/register'
-  id: '__root__' | '/' | '/login' | '/onboarding' | '/register'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/login'
+    | '/onboarding'
+    | '/profile'
+    | '/register'
+    | '/homework/$hwId'
+    | '/subjects/$subjectSlug'
+    | '/tests/$testId'
+    | '/homework'
+    | '/nusqa'
+    | '/subjects'
+    | '/tests'
+    | '/tests/$testId/result'
+    | '/subjects/$subjectSlug/lesson/$lessonId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/login'
+    | '/onboarding'
+    | '/profile'
+    | '/register'
+    | '/homework/$hwId'
+    | '/subjects/$subjectSlug'
+    | '/tests/$testId'
+    | '/homework/'
+    | '/nusqa/'
+    | '/subjects/'
+    | '/tests/'
+    | '/tests/$testId/result'
+    | '/subjects/$subjectSlug/lesson/$lessonId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
+  HomeworkHwIdRoute: typeof HomeworkHwIdRoute
+  SubjectsSubjectSlugRoute: typeof SubjectsSubjectSlugRouteWithChildren
+  TestsTestIdRoute: typeof TestsTestIdRouteWithChildren
+  HomeworkIndexRoute: typeof HomeworkIndexRoute
+  NusqaIndexRoute: typeof NusqaIndexRoute
+  SubjectsIndexRoute: typeof SubjectsIndexRoute
+  TestsIndexRoute: typeof TestsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +244,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -92,6 +267,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -99,14 +288,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tests/': {
+      id: '/tests/'
+      path: '/tests'
+      fullPath: '/tests/'
+      preLoaderRoute: typeof TestsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjects/': {
+      id: '/subjects/'
+      path: '/subjects'
+      fullPath: '/subjects/'
+      preLoaderRoute: typeof SubjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nusqa/': {
+      id: '/nusqa/'
+      path: '/nusqa'
+      fullPath: '/nusqa/'
+      preLoaderRoute: typeof NusqaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homework/': {
+      id: '/homework/'
+      path: '/homework'
+      fullPath: '/homework/'
+      preLoaderRoute: typeof HomeworkIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tests/$testId': {
+      id: '/tests/$testId'
+      path: '/tests/$testId'
+      fullPath: '/tests/$testId'
+      preLoaderRoute: typeof TestsTestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjects/$subjectSlug': {
+      id: '/subjects/$subjectSlug'
+      path: '/subjects/$subjectSlug'
+      fullPath: '/subjects/$subjectSlug'
+      preLoaderRoute: typeof SubjectsSubjectSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homework/$hwId': {
+      id: '/homework/$hwId'
+      path: '/homework/$hwId'
+      fullPath: '/homework/$hwId'
+      preLoaderRoute: typeof HomeworkHwIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tests/$testId/result': {
+      id: '/tests/$testId/result'
+      path: '/result'
+      fullPath: '/tests/$testId/result'
+      preLoaderRoute: typeof TestsTestIdResultRouteImport
+      parentRoute: typeof TestsTestIdRoute
+    }
+    '/subjects/$subjectSlug/lesson/$lessonId': {
+      id: '/subjects/$subjectSlug/lesson/$lessonId'
+      path: '/lesson/$lessonId'
+      fullPath: '/subjects/$subjectSlug/lesson/$lessonId'
+      preLoaderRoute: typeof SubjectsSubjectSlugLessonLessonIdRouteImport
+      parentRoute: typeof SubjectsSubjectSlugRoute
+    }
   }
 }
 
+interface SubjectsSubjectSlugRouteChildren {
+  SubjectsSubjectSlugLessonLessonIdRoute: typeof SubjectsSubjectSlugLessonLessonIdRoute
+}
+
+const SubjectsSubjectSlugRouteChildren: SubjectsSubjectSlugRouteChildren = {
+  SubjectsSubjectSlugLessonLessonIdRoute:
+    SubjectsSubjectSlugLessonLessonIdRoute,
+}
+
+const SubjectsSubjectSlugRouteWithChildren =
+  SubjectsSubjectSlugRoute._addFileChildren(SubjectsSubjectSlugRouteChildren)
+
+interface TestsTestIdRouteChildren {
+  TestsTestIdResultRoute: typeof TestsTestIdResultRoute
+}
+
+const TestsTestIdRouteChildren: TestsTestIdRouteChildren = {
+  TestsTestIdResultRoute: TestsTestIdResultRoute,
+}
+
+const TestsTestIdRouteWithChildren = TestsTestIdRoute._addFileChildren(
+  TestsTestIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  LeaderboardRoute: LeaderboardRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
+  HomeworkHwIdRoute: HomeworkHwIdRoute,
+  SubjectsSubjectSlugRoute: SubjectsSubjectSlugRouteWithChildren,
+  TestsTestIdRoute: TestsTestIdRouteWithChildren,
+  HomeworkIndexRoute: HomeworkIndexRoute,
+  NusqaIndexRoute: NusqaIndexRoute,
+  SubjectsIndexRoute: SubjectsIndexRoute,
+  TestsIndexRoute: TestsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
