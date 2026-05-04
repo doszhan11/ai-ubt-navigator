@@ -46,7 +46,7 @@ function RegisterPage() {
     if (error) { toast.error(error.message); setBusy(false); return; }
     await refresh();
     toast.success(t("Есептік жазба құрылды!", "Account created!"));
-    navigate({ to: "/onboarding" });
+    navigate({ to: "/dashboard" });
   };
 
   return (

@@ -33,7 +33,7 @@ function Landing() {
     if (!user) return;
     if (role === "admin") navigate({ to: "/admin" });
     else if (role === "teacher") navigate({ to: "/teacher" });
-    else if (role === "student") navigate({ to: studentProfile?.onboarded ? "/dashboard" : "/onboarding" });
+    else if (role === "student") navigate({ to: "/dashboard" });
   }, [user, role, studentProfile, loading, navigate]);
 
   return (
