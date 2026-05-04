@@ -645,6 +645,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      promote_user_by_email: {
+        Args: { _email: string; _role: Database["public"]["Enums"]["app_role"] }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "student" | "teacher" | "admin"

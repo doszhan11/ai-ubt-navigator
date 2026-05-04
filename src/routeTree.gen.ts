@@ -17,12 +17,20 @@ import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TestsIndexRouteImport } from './routes/tests/index'
+import { Route as TeacherIndexRouteImport } from './routes/teacher/index'
 import { Route as SubjectsIndexRouteImport } from './routes/subjects/index'
 import { Route as NusqaIndexRouteImport } from './routes/nusqa/index'
 import { Route as HomeworkIndexRouteImport } from './routes/homework/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as TestsTestIdRouteImport } from './routes/tests/$testId'
+import { Route as TeacherReportsRouteImport } from './routes/teacher/reports'
+import { Route as TeacherLessonsRouteImport } from './routes/teacher/lessons'
+import { Route as TeacherHomeworkRouteImport } from './routes/teacher/homework'
 import { Route as SubjectsSubjectSlugRouteImport } from './routes/subjects/$subjectSlug'
 import { Route as HomeworkHwIdRouteImport } from './routes/homework/$hwId'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminSubscriptionsRouteImport } from './routes/admin/subscriptions'
+import { Route as AdminScheduleRouteImport } from './routes/admin/schedule'
 import { Route as TestsTestIdResultRouteImport } from './routes/tests/$testId.result'
 import { Route as SubjectsSubjectSlugLessonLessonIdRouteImport } from './routes/subjects/$subjectSlug.lesson.$lessonId'
 
@@ -66,6 +74,11 @@ const TestsIndexRoute = TestsIndexRouteImport.update({
   path: '/tests/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeacherIndexRoute = TeacherIndexRouteImport.update({
+  id: '/teacher/',
+  path: '/teacher/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SubjectsIndexRoute = SubjectsIndexRouteImport.update({
   id: '/subjects/',
   path: '/subjects/',
@@ -81,9 +94,29 @@ const HomeworkIndexRoute = HomeworkIndexRouteImport.update({
   path: '/homework/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TestsTestIdRoute = TestsTestIdRouteImport.update({
   id: '/tests/$testId',
   path: '/tests/$testId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherReportsRoute = TeacherReportsRouteImport.update({
+  id: '/teacher/reports',
+  path: '/teacher/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherLessonsRoute = TeacherLessonsRouteImport.update({
+  id: '/teacher/lessons',
+  path: '/teacher/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherHomeworkRoute = TeacherHomeworkRouteImport.update({
+  id: '/teacher/homework',
+  path: '/teacher/homework',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubjectsSubjectSlugRoute = SubjectsSubjectSlugRouteImport.update({
@@ -94,6 +127,21 @@ const SubjectsSubjectSlugRoute = SubjectsSubjectSlugRouteImport.update({
 const HomeworkHwIdRoute = HomeworkHwIdRouteImport.update({
   id: '/homework/$hwId',
   path: '/homework/$hwId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSubscriptionsRoute = AdminSubscriptionsRouteImport.update({
+  id: '/admin/subscriptions',
+  path: '/admin/subscriptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminScheduleRoute = AdminScheduleRouteImport.update({
+  id: '/admin/schedule',
+  path: '/admin/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TestsTestIdResultRoute = TestsTestIdResultRouteImport.update({
@@ -116,12 +164,20 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/homework/$hwId': typeof HomeworkHwIdRoute
   '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/teacher/homework': typeof TeacherHomeworkRoute
+  '/teacher/lessons': typeof TeacherLessonsRoute
+  '/teacher/reports': typeof TeacherReportsRoute
   '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/nusqa/': typeof NusqaIndexRoute
   '/subjects/': typeof SubjectsIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/tests/': typeof TestsIndexRoute
   '/tests/$testId/result': typeof TestsTestIdResultRoute
   '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
@@ -134,12 +190,20 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/homework/$hwId': typeof HomeworkHwIdRoute
   '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/teacher/homework': typeof TeacherHomeworkRoute
+  '/teacher/lessons': typeof TeacherLessonsRoute
+  '/teacher/reports': typeof TeacherReportsRoute
   '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/admin': typeof AdminIndexRoute
   '/homework': typeof HomeworkIndexRoute
   '/nusqa': typeof NusqaIndexRoute
   '/subjects': typeof SubjectsIndexRoute
+  '/teacher': typeof TeacherIndexRoute
   '/tests': typeof TestsIndexRoute
   '/tests/$testId/result': typeof TestsTestIdResultRoute
   '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
@@ -153,12 +217,20 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/homework/$hwId': typeof HomeworkHwIdRoute
   '/subjects/$subjectSlug': typeof SubjectsSubjectSlugRouteWithChildren
+  '/teacher/homework': typeof TeacherHomeworkRoute
+  '/teacher/lessons': typeof TeacherLessonsRoute
+  '/teacher/reports': typeof TeacherReportsRoute
   '/tests/$testId': typeof TestsTestIdRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/nusqa/': typeof NusqaIndexRoute
   '/subjects/': typeof SubjectsIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/tests/': typeof TestsIndexRoute
   '/tests/$testId/result': typeof TestsTestIdResultRoute
   '/subjects/$subjectSlug/lesson/$lessonId': typeof SubjectsSubjectSlugLessonLessonIdRoute
@@ -173,12 +245,20 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/register'
+    | '/admin/schedule'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/homework/$hwId'
     | '/subjects/$subjectSlug'
+    | '/teacher/homework'
+    | '/teacher/lessons'
+    | '/teacher/reports'
     | '/tests/$testId'
+    | '/admin/'
     | '/homework/'
     | '/nusqa/'
     | '/subjects/'
+    | '/teacher/'
     | '/tests/'
     | '/tests/$testId/result'
     | '/subjects/$subjectSlug/lesson/$lessonId'
@@ -191,12 +271,20 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/register'
+    | '/admin/schedule'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/homework/$hwId'
     | '/subjects/$subjectSlug'
+    | '/teacher/homework'
+    | '/teacher/lessons'
+    | '/teacher/reports'
     | '/tests/$testId'
+    | '/admin'
     | '/homework'
     | '/nusqa'
     | '/subjects'
+    | '/teacher'
     | '/tests'
     | '/tests/$testId/result'
     | '/subjects/$subjectSlug/lesson/$lessonId'
@@ -209,12 +297,20 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/register'
+    | '/admin/schedule'
+    | '/admin/subscriptions'
+    | '/admin/users'
     | '/homework/$hwId'
     | '/subjects/$subjectSlug'
+    | '/teacher/homework'
+    | '/teacher/lessons'
+    | '/teacher/reports'
     | '/tests/$testId'
+    | '/admin/'
     | '/homework/'
     | '/nusqa/'
     | '/subjects/'
+    | '/teacher/'
     | '/tests/'
     | '/tests/$testId/result'
     | '/subjects/$subjectSlug/lesson/$lessonId'
@@ -228,12 +324,20 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
+  AdminScheduleRoute: typeof AdminScheduleRoute
+  AdminSubscriptionsRoute: typeof AdminSubscriptionsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   HomeworkHwIdRoute: typeof HomeworkHwIdRoute
   SubjectsSubjectSlugRoute: typeof SubjectsSubjectSlugRouteWithChildren
+  TeacherHomeworkRoute: typeof TeacherHomeworkRoute
+  TeacherLessonsRoute: typeof TeacherLessonsRoute
+  TeacherReportsRoute: typeof TeacherReportsRoute
   TestsTestIdRoute: typeof TestsTestIdRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
   HomeworkIndexRoute: typeof HomeworkIndexRoute
   NusqaIndexRoute: typeof NusqaIndexRoute
   SubjectsIndexRoute: typeof SubjectsIndexRoute
+  TeacherIndexRoute: typeof TeacherIndexRoute
   TestsIndexRoute: typeof TestsIndexRoute
 }
 
@@ -295,6 +399,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teacher/': {
+      id: '/teacher/'
+      path: '/teacher'
+      fullPath: '/teacher/'
+      preLoaderRoute: typeof TeacherIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/subjects/': {
       id: '/subjects/'
       path: '/subjects'
@@ -316,11 +427,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeworkIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tests/$testId': {
       id: '/tests/$testId'
       path: '/tests/$testId'
       fullPath: '/tests/$testId'
       preLoaderRoute: typeof TestsTestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/reports': {
+      id: '/teacher/reports'
+      path: '/teacher/reports'
+      fullPath: '/teacher/reports'
+      preLoaderRoute: typeof TeacherReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/lessons': {
+      id: '/teacher/lessons'
+      path: '/teacher/lessons'
+      fullPath: '/teacher/lessons'
+      preLoaderRoute: typeof TeacherLessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/homework': {
+      id: '/teacher/homework'
+      path: '/teacher/homework'
+      fullPath: '/teacher/homework'
+      preLoaderRoute: typeof TeacherHomeworkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/subjects/$subjectSlug': {
@@ -335,6 +474,27 @@ declare module '@tanstack/react-router' {
       path: '/homework/$hwId'
       fullPath: '/homework/$hwId'
       preLoaderRoute: typeof HomeworkHwIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/subscriptions': {
+      id: '/admin/subscriptions'
+      path: '/admin/subscriptions'
+      fullPath: '/admin/subscriptions'
+      preLoaderRoute: typeof AdminSubscriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/schedule': {
+      id: '/admin/schedule'
+      path: '/admin/schedule'
+      fullPath: '/admin/schedule'
+      preLoaderRoute: typeof AdminScheduleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tests/$testId/result': {
@@ -386,12 +546,20 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
+  AdminScheduleRoute: AdminScheduleRoute,
+  AdminSubscriptionsRoute: AdminSubscriptionsRoute,
+  AdminUsersRoute: AdminUsersRoute,
   HomeworkHwIdRoute: HomeworkHwIdRoute,
   SubjectsSubjectSlugRoute: SubjectsSubjectSlugRouteWithChildren,
+  TeacherHomeworkRoute: TeacherHomeworkRoute,
+  TeacherLessonsRoute: TeacherLessonsRoute,
+  TeacherReportsRoute: TeacherReportsRoute,
   TestsTestIdRoute: TestsTestIdRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
   HomeworkIndexRoute: HomeworkIndexRoute,
   NusqaIndexRoute: NusqaIndexRoute,
   SubjectsIndexRoute: SubjectsIndexRoute,
+  TeacherIndexRoute: TeacherIndexRoute,
   TestsIndexRoute: TestsIndexRoute,
 }
 export const routeTree = rootRouteImport

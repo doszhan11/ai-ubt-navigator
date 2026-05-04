@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
+import { ensureSeedUsers } from "@/server/seed.functions";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -21,26 +22,66 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+/** Convert short logins like "1234" or "admin" into a full email so they work with Supabase. */
+function normalizeLogin(input: string): string {
+  const v = input.trim();
+  if (v.includes("@")) return v;
+  return `${v}@aiubt.kz`;
+}
+
 function LoginPage() {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { refresh } = useAuth();
-  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    const email = normalizeLogin(login);
+
+    const tryLogin = () => supabase.auth.signInWithPassword({ email, password });
+
+    let { error } = await tryLogin();
+
+    // If credentials look like a seed admin/teacher and login fails, try to create them then retry.
+    const isSeedCandidate = (login.trim() === "1234" && password === "1234") || (login.trim() === "123" && password === "123");
+    if (error && isSeedCandidate) {
+      try {
+        await ensureSeedUsers();
+        ({ error } = await tryLogin());
+      } catch (err: any) {
+        console.error("[seed] failed:", err);
+      }
+    }
+
     if (error) {
       toast.error(error.message);
       setBusy(false);
       return;
     }
+
+    // Determine role then redirect to the right place
+    const { data: sess } = await supabase.auth.getSession();
+    const uid = sess.session?.user.id;
+    let nextPath: "/admin" | "/teacher" | "/dashboard" | "/onboarding" = "/dashboard";
+    if (uid) {
+      const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", uid);
+      const list = (roles ?? []).map((r: any) => r.role as string);
+      if (list.includes("admin")) nextPath = "/admin";
+      else if (list.includes("teacher")) nextPath = "/teacher";
+      else {
+        const { data: sp } = await supabase.from("student_profiles").select("onboarded").eq("id", uid).maybeSingle();
+        nextPath = sp?.onboarded ? "/dashboard" : "/onboarding";
+      }
+    }
+
     await refresh();
     toast.success(t("Қош келдіңіз!", "Welcome back!"));
-    navigate({ to: "/dashboard" });
+    navigate({ to: nextPath });
   };
 
   return (
@@ -69,8 +110,8 @@ function LoginPage() {
               <p className="text-sm text-muted-foreground mt-1">{t("Жалғастыру үшін есептік жазбаңызға кіріңіз.", "Sign in to your account to continue.")}</p>
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div>
-                  <Label htmlFor="email">{t("Электрондық пошта", "Email")}</Label>
-                  <Input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1.5" />
+                  <Label htmlFor="login">{t("Логин немесе email", "Login or email")}</Label>
+                  <Input id="login" autoComplete="username" required value={login} onChange={(e) => setLogin(e.target.value)} className="mt-1.5" />
                 </div>
                 <div>
                   <Label htmlFor="password">{t("Құпия сөз", "Password")}</Label>
@@ -80,6 +121,13 @@ function LoginPage() {
                   {busy ? t("Кіруде…", "Signing in…") : t("Кіру", "Log in")}
                 </Button>
               </form>
+
+              <div className="mt-5 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground space-y-1">
+                <div className="font-semibold text-foreground">{t("Тестілеу үшін:", "Test accounts:")}</div>
+                <div>👑 {t("Әкімші", "Admin")}: <code className="font-mono">1234</code> / <code className="font-mono">1234</code></div>
+                <div>👨‍🏫 {t("Мұғалім", "Teacher")}: <code className="font-mono">123</code> / <code className="font-mono">123</code></div>
+              </div>
+
               <p className="mt-5 text-sm text-center text-muted-foreground">
                 {t("Есептік жазбаңыз жоқ па?", "Don't have an account?")}{" "}
                 <Link to="/register" className="font-semibold text-accent hover:underline">{t("Тіркелу", "Register")}</Link>
